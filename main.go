@@ -14,4 +14,6 @@ func main() {
 	for i := 1; i <= 10; i++ {
 		go compute(i)
 	}
+	var input string
+	fmt.Scanln(&input)
 }
