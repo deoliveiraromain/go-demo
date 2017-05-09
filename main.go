@@ -12,6 +12,6 @@ func compute(n int) {
 }
 func main() {
 	for i := 1; i <= 10; i++ {
-		compute(i)
+		go compute(i)
 	}
 }
