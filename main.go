@@ -1,21 +1,28 @@
 package main
 
-import (
-	"fmt"
-	"time"
-)
+import "strconv"
 
-func compute(n int, c chan int) {
-	fmt.Println("Calcul n° ", n)
-	time.Sleep(1 * time.Second)
-	c <- n
+const fizz = "FIZZ"
+
+const buzz = "BUZZ"
+
+//Compute the fizzbuzz value of an integer :
+// Fizz if %3=0, Buzz if %5=0, FizzBuzz if both
+func fizzbuzz(value int) string {
+	isfizz := value%3 == 0
+	isbuzz := value%5 == 0
+
+	if isfizz && isbuzz {
+		return fizz + buzz
+	}
+	if isfizz {
+		return fizz
+	}
+	if isbuzz {
+		return buzz
+	}
+	return strconv.Itoa(value)
 }
+
 func main() {
-	c := make(chan int)
-	for i := 1; i <= 10; i++ {
-		go compute(i, c)
-	}
-	for i := 1; i <= 10; i++ {
-		fmt.Println("End of calcul n°", <-c)
-	}
 }
