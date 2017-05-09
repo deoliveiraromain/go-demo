@@ -5,15 +5,17 @@ import (
 	"time"
 )
 
-func compute(n int) {
+func compute(n int, c chan int) {
 	fmt.Println("Calcul n° ", n)
 	time.Sleep(1 * time.Second)
-	fmt.Println("End of calcul n°", n)
+	c <- n
 }
 func main() {
+	c := make(chan int)
 	for i := 1; i <= 10; i++ {
-		go compute(i)
+		go compute(i, c)
 	}
-	var input string
-	fmt.Scanln(&input)
+	for i := 1; i <= 10; i++ {
+		fmt.Println("End of calcul n°", <-c)
+	}
 }
